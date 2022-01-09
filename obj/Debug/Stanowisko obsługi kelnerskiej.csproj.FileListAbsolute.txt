@@ -1,0 +1,26 @@
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\bin\Debug\Stanowisko obsługi kelnerskiej.exe.config
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\bin\Debug\Stanowisko obsługi kelnerskiej.exe
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\bin\Debug\Stanowisko obsługi kelnerskiej.pdb
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\Stanowisko obsługi kelnerskiej.csprojAssemblyReference.cache
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\MainWindow.g.cs
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\App.g.cs
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\Stanowisko obsługi kelnerskiej_MarkupCompile.cache
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\Stanowisko obsługi kelnerskiej_MarkupCompile.lref
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\MainWindow.baml
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\Stanowisko obsługi kelnerskiej.g.resources
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\Stanowisko_obsługi_kelnerskiej.Properties.Resources.resources
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\Stanowisko obsługi kelnerskiej.csproj.GenerateResource.cache
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\Stanowisko obsługi kelnerskiej.csproj.CoreCompileInputs.cache
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\Stanowisko obsługi kelnerskiej.exe
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\Stanowisko obsługi kelnerskiej.pdb
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\NewOrderWindow.g.cs
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\NewOrderWindow.baml
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\SeatInfo.g.cs
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\SeatInfo.baml
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\bin\Debug\StanowiskoKelnerskie.mdf
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\bin\Debug\StanowiskoKelnerskie_log.ldf
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\Stanowisko obsługi kelnerskiej_Content.g.cs
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\App.baml
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\AddToOrderWindow.g.cs
+C:\Users\Mekafukame\source\repos\Stanowisko obsługi kelnerskiej\Stanowisko obsługi kelnerskiej\obj\Debug\AddToOrderWindow.baml

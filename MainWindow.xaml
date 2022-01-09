@@ -1,0 +1,1045 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stanowisko_obsługi_kelnerskiej" x:Class="Stanowisko_obsługi_kelnerskiej.MainWindow"
+        mc:Ignorable="d"
+        
+        Title="Restauracja++" Height="560" Width="1000" WindowStyle="None" Background="#FF252525" BorderBrush="#FF121212" BorderThickness="2" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Window.Resources>
+
+        <ControlTemplate x:Key="ButtonExit" TargetType="{x:Type Button}">
+            <TextBlock Text="X" TextAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Segoe Script" x:Name="xBttnTxt" Foreground="Black" FontWeight="Bold" TextDecorations="{x:Null}"/>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="xBttnTxt" Property="Margin" Value="0,1,1,0" />
+                    <Setter TargetName="xBttnTxt" Property="Foreground" Value="DarkGray" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ButtonMinimalize" TargetType="{x:Type Button}">
+            <TextBlock Text="-" TextAlignment="Center" VerticalAlignment="Center"  FontSize="40" FontFamily="Segoe Script" x:Name="xBttnTxt" Foreground="Black" FontWeight="Bold" TextDecorations="{x:Null}"/>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="xBttnTxt" Property="Margin" Value="0,1,1,0" />
+                    <Setter TargetName="xBttnTxt" Property="Foreground" Value="DarkGray" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ButtonMaximalize" TargetType="{x:Type Button}">
+            <TextBlock Text="□" TextAlignment="Center" VerticalAlignment="Center" FontSize="30" FontFamily="Segoe Script" x:Name="xBttnTxt" Foreground="Black" FontWeight="Normal" TextDecorations="{x:Null}" Padding="0,0,0,3"/>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="xBttnTxt" Property="Margin" Value="0,1,1,0" />
+                    <Setter TargetName="xBttnTxt" Property="Foreground" Value="DarkGray" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ButtonControlTemp" TargetType="{x:Type Button}">
+            <Border BorderThickness="1" BorderBrush="#FF121212" CornerRadius="0" x:Name="ButtonBorder"  >
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="LightGray" Offset="0"/>
+                        <GradientStop Color="Gray" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <TextBlock x:Name="txtBlock" TextAlignment="Center" FontSize="20" FontFamily="Constantia" Padding="2.5" Foreground="DimGray" VerticalAlignment="Center" FontWeight="Bold"><InlineUIContainer>                     
+                        <ContentPresenter />
+                    </InlineUIContainer></TextBlock>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="ButtonBorder" Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="Gray" Offset="0"/>
+                                <GradientStop Color="DimGray" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="txtBlock" Property="Foreground" Value="lightgray"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter TargetName="ButtonBorder" Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FF515151" Offset="0"/>
+                                <GradientStop Color="#FF3C3C3C" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="txtBlock" Property="Foreground" Value="lightgray"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style x:Key="RadioButtonControlZamowienie" TargetType="{x:Type RadioButton}">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource RadioButtonFocusVisual}" />
+            <Setter Property="FontFamily" Value="Constantia"/>
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#FF2C2C2C"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="20,5"/>
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <BulletDecorator Background="Transparent">
+                            <BulletDecorator.Bullet>
+                                <Grid Width="25" Height="25">
+                                    <Rectangle
+                                x:Name="Border"                                
+                                RadiusX="5"
+                                RadiusY="5"                                
+                                >
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="LightGray" Offset="0"/>
+                                                <GradientStop Color="Gray" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <Rectangle
+                                x:Name="centerRectangle"
+                                
+                                        RadiusX="5"
+                                        RadiusY="5"
+                                Fill="DimGray"
+                                Visibility="Visible"
+                                Margin="3"
+                                />
+                                    <TextBlock
+                                x:Name="CheckMark"                               
+                                Text="X"      
+                                        Foreground="LightGray"
+                                Visibility="Collapsed"
+                                Margin="5" FontFamily="Segoe Print" FontWeight="Bold" FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Center"
+                                />
+                                </Grid>
+                            </BulletDecorator.Bullet>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver" />
+                                    <VisualState x:Name="Pressed" />
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames
+                                        Storyboard.TargetName="centerRectangle"
+                                        Storyboard.TargetProperty="Fill.Color"
+                                        >
+                                                <DiscreteColorKeyFrame KeyTime="0" Value="Red" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked" >
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="CheckMark"
+                                        Storyboard.TargetProperty="(UIElement.Visibility)"
+                                        >
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked" />
+                                    <VisualState x:Name="Indeterminate" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter
+                        Margin="4,0,0,0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        RecognizesAccessKey="True"
+                        />
+                        </BulletDecorator>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="RadioButtonControlZamowienieStoliki" TargetType="{x:Type RadioButton}">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource RadioButtonFocusVisual}" />
+            <Setter Property="FontFamily" Value="Arial Rounded MT Bold"/>
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="BorderBrush" Value="#FF2C2C2C"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="20,5"/>
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">                        
+                        <BulletDecorator Background="Transparent">
+                            <BulletDecorator.Bullet>
+                                <Grid Width="25" Height="25">
+                                    <Rectangle
+                                x:Name="Border"                                
+                                RadiusX="5"
+                                RadiusY="5"                                
+                                >
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="LightGray" Offset="0"/>
+                                                <GradientStop Color="Gray" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <Rectangle
+                                x:Name="centerRectangle"
+                                
+                                        RadiusX="5"
+                                        RadiusY="5"
+                                Fill="DimGray"
+                                Visibility="Visible"
+                                Margin="3"
+                                />
+                                    <TextBlock
+                                x:Name="CheckMark"                               
+                                Text="X"      
+                                        Foreground="LightGray"
+                                Visibility="Collapsed"
+                                Margin="5" FontFamily="Segoe Print" FontWeight="Bold" FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Center"
+                                />
+                                </Grid>
+                            </BulletDecorator.Bullet>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver" />
+                                    <VisualState x:Name="Pressed" />
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames
+                                        Storyboard.TargetName="centerRectangle"
+                                        Storyboard.TargetProperty="Fill.Color"
+                                        >
+                                                <DiscreteColorKeyFrame KeyTime="0" Value="Red" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked" >
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="CheckMark"
+                                        Storyboard.TargetProperty="(UIElement.Visibility)"
+                                        >
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked" />
+                                    <VisualState x:Name="Indeterminate" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter
+                        Margin="4,0,0,0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        RecognizesAccessKey="True"
+                        />
+                        </BulletDecorator>                        
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="BorderBrush" Value="#FF171717"/>
+            <Setter Property="Foreground" Value="LightGray"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Constantia"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Gray" Offset="0"/>
+                        <GradientStop Color="DimGray" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Border}" x:Key="ButtonDisabled">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="Gray" Offset="0"/>
+                                <GradientStop Color="DimGray" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BttnTxtDisabled" TargetType="{x:Type TextBlock}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Foreground" Value="LightGray" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="StolikBttn" TargetType="{x:Type Button}" >
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="#FFC97751" Offset="0"/>
+                        <GradientStop Color="SaddleBrown" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontFamily" Value="Arial Rounded MT Bold"/>
+            <Setter Property="Foreground" Value="#FF555555"/>
+            <Setter Property="FontSize" Value="40"/>            
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Lime" Offset="0"/>
+                        <GradientStop Color="Green" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="5"/>
+        </Style>
+        <local:StanowiskoKelnerskie x:Key="stanowiskoKelnerskie"/>
+
+    </Window.Resources>
+
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Row="0" Background="#FF171717" MouseDown="Drag_OnMouseDown">
+            <Border BorderBrush="#FF0F0F0F" BorderThickness="0,0,0,2">
+                <Grid >
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0.636,0,2.636" TextWrapping="Wrap" Text="Restauracja++" VerticalAlignment="Center" TextAlignment="Center" FontSize="16" FontFamily="Nirmala UI" Foreground="DarkGray" FontWeight="Bold"/>
+                    <Button Content="Button" HorizontalAlignment="Right" Margin="2.5,0" Click="Exit_OnClick" VerticalAlignment="Center" Width="20" Height="20" Template="{DynamicResource ButtonExit}"/>
+                    <Button Content="Button" HorizontalAlignment="Right" Margin="32.5,0" Click="Maximize_OnClick" VerticalAlignment="Center" Width="20" Height="20" Template="{DynamicResource ButtonMaximalize}"/>
+                    <Button Content="Button" HorizontalAlignment="Right" Margin="62.5,0" Click="Minimalize_OnClick" VerticalAlignment="Center" Width="20" Height="20" Template="{DynamicResource ButtonMinimalize}"/>
+                </Grid>
+            </Border>
+        </Grid>
+        <Border Grid.Row="1" BorderThickness="0,0,0,2" BorderBrush="#FF0F0F0F" >
+            <Grid Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="25*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="NewOrderMenuBttn" Grid.Column="0" Content="Nowe zamówienie" VerticalAlignment="Stretch" Click="NewOrder_OnClick" AutomationProperties.Name="NewOrderBttn" Template="{DynamicResource ButtonControlTemp}"/>
+                <Button x:Name="RestaurantMenuBttn" Grid.Column="1"  Content="Restauracja"  VerticalAlignment="Stretch" Click="Restaurant_OnClick" AutomationProperties.Name="RestaurantBttn" Template="{DynamicResource ButtonControlTemp}"/>
+                <Button x:Name="ColectMenuBttn" Grid.Column="2" Content="Odbiór własny" VerticalAlignment="Stretch"  Click="Colect_OnClick" AutomationProperties.Name="ColectBttn" Template="{DynamicResource ButtonControlTemp}"/>
+                <Button x:Name="DeliveryMenuBttn" Grid.Column="3" Content="Dostawa" VerticalAlignment="Stretch"  Click="Delivery_OnClick" AutomationProperties.Name="DeliveryBttn" Template="{DynamicResource ButtonControlTemp}"/>
+            </Grid>
+        </Border>
+        <Grid x:Name="HomePage" Grid.Row="2" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.ColumnSpan="2" d:IsHidden="True">
+            <Image HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Source="Title.png" />
+        </Grid>
+        <Grid x:Name="NoweZamowienie" Grid.Row="2" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.ColumnSpan="2" d:IsHidden="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition Width="40*"/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="HeaderNewOrder" Background="#FF424242" VerticalAlignment="Top" Height="30" BorderThickness="0,0,2,2" BorderBrush="#FF121212" >
+                <Grid x:Name="Header" HorizontalAlignment="Stretch"  Margin="0,0,0,0" VerticalAlignment="Stretch" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=idColumn}" />
+
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=kategoriaColumn}"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=nazwaColumn}"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=rozmiarColumn}"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=cenaColumn}"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=iloscColumn}"/>
+
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="1" Text="Nr" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="2" Text="Kategoria" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="3" Text="Nazwa" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="4" Text="Rozmiar" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="5" Text="Cena" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="6" Text="Ilość" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" Foreground="Gray" FontFamily="Constantia" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                </Grid>
+            </Border>
+            <DataGrid x:Name="OrderListGrid" SelectionChanged="RowChange_OnChange" Grid.Column="0" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Background="#FF252525" RowHeight="25" IsReadOnly="True" Visibility="Visible" GridLinesVisibility="None" FontSize="24" Foreground="Black" BorderBrush="#FF121212" BorderThickness="0,0,2,0" SelectionMode="Single" CanUserResizeRows="False" Grid.ColumnSpan="1" Margin="0,30,0,30" HeadersVisibility="None" CanUserReorderColumns="False" AutoGenerateColumns="False">
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Margin" Value="1,1,1,0"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type DataGridRow}">
+                                    <Border CornerRadius="5" BorderThickness="1" Height="auto" Padding="5,5" Margin="1" x:Name="RowBorder" >
+                                        <Border.BorderBrush>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FF5F5F5F" Offset="0"/>
+                                                <GradientStop Color="Black" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.BorderBrush>
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                                <GradientStop Color="LightGray" Offset="0"/>
+                                                <GradientStop Color="Gray" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <SelectiveScrollingGrid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </SelectiveScrollingGrid.ColumnDefinitions>
+                                            <SelectiveScrollingGrid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="*" />
+                                            </SelectiveScrollingGrid.RowDefinitions>
+                                            <DataGridCellsPresenter Grid.Column="1" x:Name="Content"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="Black" MinHeight="30" />
+                                            <DataGridDetailsPresenter Grid.Column="1"
+                                                Grid.Row="1"
+                                                SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                Visibility="{TemplateBinding DetailsVisibility}" />
+                                            <DataGridRowHeader Grid.RowSpan="2"
+                                                SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+                                                Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                        </SelectiveScrollingGrid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="RowBorder" Property="Background" Value="#FFE0E0E0" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="RowBorder" Property="Background" >
+                                                <Setter.Value>
+                                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                                        <GradientStop Color="DimGray" Offset="0"/>
+                                                        <GradientStop Color="#FF444444" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter TargetName="Content" Property="Foreground" Value="black"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                    <Border x:Name="border"  BorderThickness="0" VerticalAlignment="Center"  HorizontalAlignment="Center" >
+                                        <ContentPresenter Height="auto"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="idColumn" Binding="{Binding nr}" Header="Nr" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="kategoriaColumn" Binding="{Binding kategoria}" Header="Kategoria" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="nazwaColumn" Binding="{Binding nazwa}" Header="Nazwa" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="rozmiarColumn" Binding="{Binding rozmiar}" Header="Rozmiar" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding cenaSuma, StringFormat=\{0:N2\} zł.}" Header="Cena" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="iloscColumn" Binding="{Binding ilosc, StringFormat={}{0} szt.}" Header="Ilość" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+                <Button Template="{DynamicResource ButtonControlTemp}" Grid.Column="0" Content="Dodaj" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="30" Click="AddOrder_OnClick"/>
+                <Button Template="{DynamicResource ButtonControlTemp}" Grid.Column="1" Content="Usuń" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="30" Click="DeleteOrder_OnClick"/>
+            </Grid>
+            <StackPanel Grid.Column="1"  Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,0" >
+                <TextBlock Text="Rodzaj zamówienia" FontSize="40" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia"/>
+                <RadioButton x:Name="stolikRB" Checked="RodzajZamowienia_OnChange" Content="Stolik"  GroupName="zamowienie"  Height="auto" Width="auto" VerticalAlignment="Center" Style="{DynamicResource RadioButtonControlZamowienie}"/>
+                <RadioButton x:Name="WynosRB" Checked="RodzajZamowienia_OnChange"  Content="Odbiór własny"  GroupName="zamowienie"  Height="auto" Width="auto" VerticalAlignment="Center" Style="{DynamicResource RadioButtonControlZamowienie}"/>
+                <RadioButton x:Name="DowozRB" Checked="RodzajZamowienia_OnChange"  Content="Dowóz"  GroupName="zamowienie"  Height="auto" Width="auto" VerticalAlignment="Center" Style="{DynamicResource RadioButtonControlZamowienie}"/>
+            </StackPanel>
+            <Grid x:Name="StolikMenu" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,184,0,50" Visibility="Hidden">
+                <TextBlock Text="Wybierz Stolik" FontSize="40" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia"/>
+                <Grid x:Name="Stoliki1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,50,0,0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Viewbox Stretch="Uniform" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                        <RadioButton x:Name="stolik1RB"   Content="1"  GroupName="stolikiZamowienie"  Style="{DynamicResource RadioButtonControlZamowienieStoliki}" />
+                    </Viewbox>
+                    <Viewbox Stretch="Uniform" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" >
+                        <RadioButton x:Name="stolik2RB"   Content="2"  GroupName="stolikiZamowienie"  Style="{DynamicResource RadioButtonControlZamowienieStoliki}" />
+                    </Viewbox>
+                    <Viewbox Stretch="Uniform" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" >
+                        <RadioButton x:Name="stolik3RB"   Content="3"  GroupName="stolikiZamowienie"  Style="{DynamicResource RadioButtonControlZamowienieStoliki}" />
+                    </Viewbox>
+                    <Viewbox Stretch="Uniform" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" >
+                        <RadioButton x:Name="stolik4RB"   Content="4"  GroupName="stolikiZamowienie"  Style="{DynamicResource RadioButtonControlZamowienieStoliki}" />
+                    </Viewbox>
+                    <Viewbox Stretch="Uniform" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" >
+                        <RadioButton x:Name="stolik5RB"   Content="5"  GroupName="stolikiZamowienie"  Style="{DynamicResource RadioButtonControlZamowienieStoliki}" />
+                    </Viewbox>
+                    <Viewbox Stretch="Uniform" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" >
+                        <RadioButton x:Name="stolik6RB"   Content="6"  GroupName="stolikiZamowienie"  Style="{DynamicResource RadioButtonControlZamowienieStoliki}" />
+                    </Viewbox>
+                    <Viewbox Stretch="Uniform" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" >
+                        <RadioButton x:Name="stolik7RB"   Content="7"  GroupName="stolikiZamowienie"  Style="{DynamicResource RadioButtonControlZamowienieStoliki}" />
+                    </Viewbox>
+                    <Viewbox Stretch="Uniform" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" >
+                        <RadioButton x:Name="stolik8RB"  Content="8"  GroupName="stolikiZamowienie"  Style="{DynamicResource RadioButtonControlZamowienieStoliki}" />
+                    </Viewbox>
+                    <Viewbox Stretch="Uniform" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                        <RadioButton x:Name="stolik9RB"   Content="9"  GroupName="stolikiZamowienie"  Style="{DynamicResource RadioButtonControlZamowienieStoliki}" />
+                    </Viewbox>                   
+
+                </Grid>
+            </Grid>
+            <Grid x:Name="WynosMenu" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,184,0,50" Visibility="Hidden">
+                <TextBlock Text="Podaj Dane" FontSize="40" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia"/>
+                <Grid x:Name="DaneKontaktowe" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,50,0,0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock  Grid.Column="0" Grid.Row="0" Text="Nazwisko" FontSize="20" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia"/>
+                    <TextBox x:Name="NazwiskoWynos" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="20,0" Style="{DynamicResource TextBoxStyle}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Telefon" FontSize="20" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia"/>
+                    <TextBox x:Name="TelefonWynos" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="20,0" Style="{DynamicResource TextBoxStyle}"/>
+                </Grid>
+            </Grid>
+            <Grid x:Name="DowozMenu" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,184,0,50" Visibility="Hidden">
+                <TextBlock Text="Podaj Dane" FontSize="40" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia"/>
+                <Grid x:Name="DowozDane" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,50,0,0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Nazwisko" FontSize="20" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia" />
+                    <TextBox x:Name="NazwiskoDowoz" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="20,0" Style="{DynamicResource TextBoxStyle}"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="Imię" FontSize="20" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia" />
+                    <TextBox x:Name="ImieDowoz" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="20,0" Style="{DynamicResource TextBoxStyle}"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Text="Miejscowość" FontSize="20" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia" />
+                    <TextBox x:Name="MiejscowoscDowoz" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="20,0" Style="{DynamicResource TextBoxStyle}"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Text="Ulica" FontSize="20" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia" />
+                    <TextBox x:Name="UlicaDowoz" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="20,0" Style="{DynamicResource TextBoxStyle}"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,50,0" Text="Nr Domu" FontSize="20" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia" />
+                    <TextBox x:Name="NrDomuDowoz" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="30,0,0,0" Style="{DynamicResource TextBoxStyle}"/>
+
+                    <TextBlock Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,0,0" Text="Nr Mieszkania" FontSize="20" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia" />
+                    <TextBox x:Name="NrMieszkaniaDowoz" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="10,0,20,0" Style="{DynamicResource TextBoxStyle}"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Text="Telefon" FontSize="20" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" Foreground="Gray" FontWeight="Bold" FontFamily="Constantia" />
+                    <TextBox x:Name="TelefonDowoz" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="20,0" Style="{DynamicResource TextBoxStyle}"/>
+
+                </Grid>
+            </Grid>
+            <Button Grid.Column="1"  Template="{DynamicResource ButtonControlTemp}" Content="Dodaj Zamówienie" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="30" Click="CreateOrder_OnClick" />
+        </Grid>
+        <Grid x:Name="Restauracja" Grid.Row="2" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.ColumnSpan="2" d:IsHidden="True">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="65*"/>
+                    <ColumnDefinition Width="35*"/>
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="Black" BorderThickness="5" HorizontalAlignment="Stretch" Margin="2,10,10,10" VerticalAlignment="Stretch" Grid.Column="1" Background="#FF555555">
+                    <Grid x:Name="Stoliki">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="Stolik1" Content="1" Grid.Column="0" Grid.Row="0" Style="{DynamicResource StolikBttn}" Click="Seat_OnClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="25" />
+                        <Button x:Name="Stolik2" Content="2" Grid.Column="1" Grid.Row="0" Style="{DynamicResource StolikBttn}" Click="Seat_OnClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="25"/>
+                        <Button x:Name="Stolik3" Content="3" Grid.Column="2" Grid.Row="0" Style="{DynamicResource StolikBttn}" Click="Seat_OnClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="25"/>
+                        <Button x:Name="Stolik4" Content="4" Grid.Column="3" Grid.Row="0" Style="{DynamicResource StolikBttn}" Click="Seat_OnClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="25"/>
+                        <Button x:Name="Stolik5" Content="5" Grid.Column="0" Grid.Row="1" Style="{DynamicResource StolikBttn}" Click="Seat_OnClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="25"/>
+                        <Button x:Name="Stolik6" Content="6" Grid.Column="0" Grid.Row="2" Style="{DynamicResource StolikBttn}" Click="Seat_OnClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="25"/>
+                        <Button x:Name="Stolik7" Content="7" Grid.Column="1" Grid.Row="1" Style="{DynamicResource StolikBttn}" Grid.ColumnSpan="2" Click="Seat_OnClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="25"/>
+                        <Button x:Name="Stolik8" Content="8" Grid.Column="1" Grid.Row="2" Style="{DynamicResource StolikBttn}" Grid.ColumnSpan="2" Click="Seat_OnClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="25"/>
+                        <Button x:Name="Stolik9" Content="9" Grid.Column="3" Grid.Row="1" Style="{DynamicResource StolikBttn}" Grid.RowSpan="2" Click="Seat_OnClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="25"/>
+                    </Grid>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="2" Grid.Column="2" HorizontalAlignment="Stretch"  Margin="0,10,10,10" VerticalAlignment="Stretch"  >
+                    <Frame x:Name="SeatInfoPlace" Content="" NavigationUIVisibility="Hidden"/>
+                </Border>
+            </Grid>
+        </Grid>
+        <Grid x:Name="OdbiorWlasny" Grid.Row="2" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.ColumnSpan="2" d:IsHidden="True">            
+            <Border x:Name="HeaderWynos" VerticalAlignment="Top" Background="#FF424242" HorizontalAlignment="Stretch" BorderThickness="0,0,2,2" Height="30" BorderBrush="#FF121212" Margin="0,0,0,0" >
+                <Grid x:Name="Header2" HorizontalAlignment="Stretch"  Margin="0,0,0,0" VerticalAlignment="Stretch" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=NrZamowienia1}" />
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=Nazwisko1}"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=Telefon1}"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=CenaSuma1}"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="1" Text="Nr" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="2" Text="Nazwisko" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="3" Text="Telefon" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="4" Text="Cena" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                </Grid>
+            </Border>
+            <DataGrid x:Name="WynosList" Grid.Column="0" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Background="#FF252525" RowHeight="25" IsReadOnly="True" Visibility="Visible" GridLinesVisibility="None" FontSize="24" Foreground="Black" BorderBrush="#FF121212" BorderThickness="0,0,0,0" SelectionMode="Single" CanUserResizeRows="False" Grid.ColumnSpan="1" Margin="0,30,0,30" HeadersVisibility="None" CanUserReorderColumns="False" AutoGenerateColumns="False">
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Margin" Value="1,1,1,0"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type DataGridRow}">
+                                    <Border CornerRadius="5" BorderThickness="1" Height="auto" Padding="5,5" Margin="1" x:Name="RowBorder" >
+                                        <Border.BorderBrush>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FF5F5F5F" Offset="0"/>
+                                                <GradientStop Color="Black" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.BorderBrush>
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                                <GradientStop Color="LightGray" Offset="0"/>
+                                                <GradientStop Color="Gray" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <SelectiveScrollingGrid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </SelectiveScrollingGrid.ColumnDefinitions>
+                                            <SelectiveScrollingGrid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="*" />
+                                            </SelectiveScrollingGrid.RowDefinitions>
+                                            <DataGridCellsPresenter Grid.Column="1" x:Name="Content"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="Black" MinHeight="30" />
+                                            <DataGridDetailsPresenter Grid.Column="1"
+                                                Grid.Row="1" HorizontalAlignment="Stretch"
+                                                SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                Visibility="{TemplateBinding DetailsVisibility}" />
+                                            <DataGridRowHeader Grid.RowSpan="2"
+                                                SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+                                                Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                        </SelectiveScrollingGrid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="RowBorder" Property="Background" Value="#FFE0E0E0" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="RowBorder" Property="Background" >
+                                                <Setter.Value>
+                                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                                        <GradientStop Color="DimGray" Offset="0"/>
+                                                        <GradientStop Color="#FF444444" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter TargetName="Content" Property="Foreground" Value="black"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                    <Border x:Name="border"  BorderThickness="0" VerticalAlignment="Center"  HorizontalAlignment="Center" >
+                                        <ContentPresenter Height="auto"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Border x:Name="HeaderNewOrder" Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="30" BorderThickness="2,0,2,2" BorderBrush="Gray" CornerRadius="5,5,5,5" >
+                                <Grid x:Name="Header" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Margin="0,0,0,0"  >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=idColumn}" />
+
+                                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=kategoriaColumn}"/>
+                                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=nazwaColumn}"/>
+                                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=rozmiarColumn}"/>
+                                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=cenaColumn}"/>
+                                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=iloscColumn}"/>
+
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="1" Text="Nr" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                                    <TextBlock Grid.Column="2" Text="Kategoria" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                                    <TextBlock Grid.Column="3" Text="Nazwa" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                                    <TextBlock Grid.Column="4" Text="Rozmiar" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                                    <TextBlock Grid.Column="5" Text="Cena" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                                    <TextBlock Grid.Column="6" Text="Ilość" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" Foreground="Gray" FontFamily="Constantia" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                                </Grid>
+                            </Border>
+                            <DataGrid ItemsSource="{Binding Zamowienia}" MaxHeight="300"  Margin="0,30,0,0" Grid.Column="0" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Background="{x:Null}" RowHeight="25" IsReadOnly="True" Visibility="Visible" GridLinesVisibility="None" FontSize="24" Foreground="Black" BorderBrush="{x:Null}" BorderThickness="0,2,2,0" SelectionMode="Single" CanUserResizeRows="False" Grid.ColumnSpan="1" HeadersVisibility="None" CanUserReorderColumns="False" AutoGenerateColumns="False">
+
+                                <DataGrid.RowStyle>
+                                    <Style TargetType="{x:Type DataGridRow}">
+                                        <Setter Property="Margin" Value="1,1,1,0"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type DataGridRow}">
+                                                    <Border CornerRadius="5" BorderThickness="1" Height="auto" Padding="5,5" Margin="1" x:Name="RowBorder" Background="DimGray" BorderBrush="Gray" >
+                                                        <SelectiveScrollingGrid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </SelectiveScrollingGrid.ColumnDefinitions>
+                                                            <SelectiveScrollingGrid.RowDefinitions>
+                                                                <RowDefinition Height="auto"/>
+                                                                <RowDefinition Height="*" />
+                                                            </SelectiveScrollingGrid.RowDefinitions>
+                                                            <DataGridCellsPresenter Grid.Column="1" x:Name="Content"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="Black" MinHeight="30" />
+                                                            <DataGridDetailsPresenter Grid.Column="1"
+                                                Grid.Row="1"
+                                                SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                Visibility="{TemplateBinding DetailsVisibility}" />
+                                                            <DataGridRowHeader Grid.RowSpan="2"
+                                                SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+                                                Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                                        </SelectiveScrollingGrid>
+                                                    </Border>
+                                                </ControlTemplate>
+
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGrid.RowStyle>
+                                <DataGrid.CellStyle>
+                                    <Style TargetType="{x:Type DataGridCell}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                    <Border x:Name="border"  BorderThickness="0" VerticalAlignment="Center"  HorizontalAlignment="Center" >
+                                                        <ContentPresenter Height="auto"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGrid.CellStyle>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn x:Name="idColumn" Binding="{Binding nr}" Header="Nr" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                                    <DataGridTextColumn x:Name="kategoriaColumn" Binding="{Binding kategoria}" Header="Kategoria" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                                    <DataGridTextColumn x:Name="nazwaColumn" Binding="{Binding nazwa}" Header="Nazwa" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                                    <DataGridTextColumn x:Name="rozmiarColumn" Binding="{Binding rozmiar}" Header="Rozmiar" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                                    <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding cenaSuma, StringFormat=\{0:N2\} zł.}" Header="Cena" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                                    <DataGridTextColumn x:Name="iloscColumn" Binding="{Binding ilosc, StringFormat=\{0\} szt.}" Header="Ilość" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="NrZamowienia1" Binding="{Binding NrZamowienia}" Header="Nr" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="Nazwisko1" Binding="{Binding Nazwisko}" Header="Kategoria" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="Telefon1" Binding="{Binding Telefon}" Header="Nazwa" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="CenaSuma1" Binding="{Binding CenaSuma, StringFormat=\{0:N2\} zł.}" Header="Rozmiar" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="EndOrderWynos"  Grid.Column="0" Height="30" Content="Zakończ Zamówienie" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="DeleteWynosOrder" AutomationProperties.Name="NewOrderBttn" Template="{DynamicResource ButtonControlTemp}" />
+        </Grid>
+        <Grid x:Name="Dostawa" Grid.Row="2" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="37*"/>
+                <ColumnDefinition Width="227*"/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="HeaderWynos_Copy" VerticalAlignment="Top" Background="#FF424242" HorizontalAlignment="Stretch" BorderThickness="0,0,2,2" Height="30" BorderBrush="#FF121212" Margin="0,0,0,0" Grid.ColumnSpan="2" >
+                <Grid x:Name="Header1" HorizontalAlignment="Stretch"  Margin="0,0,0,0" VerticalAlignment="Stretch" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=NrZamowienia}" />
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=Imie}"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=Nazwisko}"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=Telefon}"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=Ulica}" />
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=Miejscowosc}"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=NrDomu}"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=NrMieszkania}"/>
+                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=CenaSuma}"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="1" Text="Nr" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="2" Text="Imie" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="3" Text="Nazwisko" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="4" Text="Telefon" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="5" Grid.ColumnSpan="4" Text="Adres" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                    <TextBlock Grid.Column="9" Text="Cena" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                </Grid>
+            </Border>
+            <DataGrid x:Name="DowozList" SelectionChanged="RowChange_OnChange" Grid.Column="0" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Background="#FF252525" RowHeight="25" IsReadOnly="True" Visibility="Visible" GridLinesVisibility="None" FontSize="24" Foreground="Black" BorderBrush="#FF121212" BorderThickness="0,0,0,0" SelectionMode="Single" CanUserResizeRows="False" Grid.ColumnSpan="2" Margin="0,30,0,30" HeadersVisibility="None" CanUserReorderColumns="False" AutoGenerateColumns="False">
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Margin" Value="1,1,1,0"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type DataGridRow}">
+                                    <Border CornerRadius="5" BorderThickness="1" Height="auto" Padding="5,5" Margin="1" x:Name="RowBorder" >
+                                        <Border.BorderBrush>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FF5F5F5F" Offset="0"/>
+                                                <GradientStop Color="Black" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.BorderBrush>
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                                <GradientStop Color="LightGray" Offset="0"/>
+                                                <GradientStop Color="Gray" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <SelectiveScrollingGrid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </SelectiveScrollingGrid.ColumnDefinitions>
+                                            <SelectiveScrollingGrid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="*" />
+                                            </SelectiveScrollingGrid.RowDefinitions>
+                                            <DataGridCellsPresenter Grid.Column="1" x:Name="Content"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="Black" MinHeight="30" />
+                                            <DataGridDetailsPresenter Grid.Column="1"
+                                                Grid.Row="1" HorizontalAlignment="Stretch"
+                                                SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                Visibility="{TemplateBinding DetailsVisibility}" />
+                                            <DataGridRowHeader Grid.RowSpan="2"
+                                                SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+                                                Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                        </SelectiveScrollingGrid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="RowBorder" Property="Background" Value="#FFE0E0E0" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="RowBorder" Property="Background" >
+                                                <Setter.Value>
+                                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                                        <GradientStop Color="DimGray" Offset="0"/>
+                                                        <GradientStop Color="#FF444444" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter TargetName="Content" Property="Foreground" Value="black"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                    <Border x:Name="border"  BorderThickness="0" VerticalAlignment="Center"  HorizontalAlignment="Center" >
+                                        <ContentPresenter Height="auto"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Border x:Name="HeaderNewOrder" Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="30" BorderThickness="2,0,2,2" BorderBrush="Gray" CornerRadius="5,5,5,5" >
+                                <Grid x:Name="Header" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Margin="0,0,0,0"  >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=idColumn}" />
+
+                                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=kategoriaColumn}"/>
+                                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=nazwaColumn}"/>
+                                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=rozmiarColumn}"/>
+                                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=cenaColumn}"/>
+                                        <ColumnDefinition Width="{Binding ActualWidth, ElementName=iloscColumn}"/>
+
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="1" Text="Nr" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                                    <TextBlock Grid.Column="2" Text="Kategoria" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                                    <TextBlock Grid.Column="3" Text="Nazwa" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                                    <TextBlock Grid.Column="4" Text="Rozmiar" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                                    <TextBlock Grid.Column="5" Text="Cena" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" FontFamily="Constantia" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                                    <TextBlock Grid.Column="6" Text="Ilość" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="22" Foreground="Gray" FontFamily="Constantia" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
+                                </Grid>
+                            </Border>
+                            <DataGrid ItemsSource="{Binding Zamowienia}" Margin="0,30,0,0" MaxHeight="300" SelectionChanged="RowChange_OnChange" Grid.Column="0" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Background="{x:Null}" RowHeight="25" IsReadOnly="True" Visibility="Visible" GridLinesVisibility="None" FontSize="24" Foreground="Black" BorderBrush="{x:Null}" BorderThickness="0,2,2,0" SelectionMode="Single" CanUserResizeRows="False" Grid.ColumnSpan="1" HeadersVisibility="None" CanUserReorderColumns="False" AutoGenerateColumns="False">
+
+                                <DataGrid.RowStyle>
+                                    <Style TargetType="{x:Type DataGridRow}">
+                                        <Setter Property="Margin" Value="1,1,1,0"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type DataGridRow}">
+                                                    <Border CornerRadius="5" BorderThickness="1" Height="auto" Padding="5,5" Margin="1" x:Name="RowBorder" Background="DimGray" BorderBrush="Gray" >
+                                                        <SelectiveScrollingGrid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </SelectiveScrollingGrid.ColumnDefinitions>
+                                                            <SelectiveScrollingGrid.RowDefinitions>
+                                                                <RowDefinition Height="auto"/>
+                                                                <RowDefinition Height="*" />
+                                                            </SelectiveScrollingGrid.RowDefinitions>
+                                                            <DataGridCellsPresenter Grid.Column="1" x:Name="Content"
+                                                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="Black" MinHeight="30" />
+                                                            <DataGridDetailsPresenter Grid.Column="1"
+                                                            Grid.Row="1"
+                                                            SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                            Visibility="{TemplateBinding DetailsVisibility}" />
+                                                            <DataGridRowHeader Grid.RowSpan="2"
+                                                            SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+                                                            Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                                        </SelectiveScrollingGrid>
+                                                    </Border>
+                                                </ControlTemplate>
+
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGrid.RowStyle>
+                                <DataGrid.CellStyle>
+                                    <Style TargetType="{x:Type DataGridCell}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                    <Border x:Name="border"  BorderThickness="0" VerticalAlignment="Center"  HorizontalAlignment="Center" >
+                                                        <ContentPresenter Height="auto"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGrid.CellStyle>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn x:Name="idColumn" Binding="{Binding nr}" Header="Nr" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                                    <DataGridTextColumn x:Name="kategoriaColumn" Binding="{Binding kategoria}" Header="Kategoria" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                                    <DataGridTextColumn x:Name="nazwaColumn" Binding="{Binding nazwa}" Header="Nazwa" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                                    <DataGridTextColumn x:Name="rozmiarColumn" Binding="{Binding rozmiar}" Header="Rozmiar" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                                    <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding cenaSuma, StringFormat=\{0:N2\} zł.}" Header="Cena" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                                    <DataGridTextColumn x:Name="iloscColumn" Binding="{Binding ilosc, StringFormat=\{0\} szt.}" Header="Ilość" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="NrZamowienia" Binding="{Binding NrZamowienia}" Header="Nr" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="Imie" Binding="{Binding Imie}" Header="Kategoria" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="Nazwisko" Binding="{Binding Nazwisko}" Header="Kategoria" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="Telefon" Binding="{Binding Telefon}" Header="Nazwa" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="Ulica" Binding="{Binding Ulica}" Header="Kategoria" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="Miejscowosc" Binding="{Binding Miejscowosc}" Header="Kategoria" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="NrDomu" Binding="{Binding NrDomu}" Header="Kategoria" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="NrMieszkania" Binding="{Binding NrMieszkania}" Header="Kategoria" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                    <DataGridTextColumn x:Name="CenaSuma" Binding="{Binding CenaSuma, StringFormat=\{0:N2\} zł.}" Header="Rozmiar" Width="auto" CanUserResize="False" Foreground="WhiteSmoke"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="EndOrderDowoz" Grid.Column="0" Height="30" Content="Zakończ Zamówienie" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="DeleteDeliveryOrder" AutomationProperties.Name="NewOrderBttn" Template="{DynamicResource ButtonControlTemp}" Grid.ColumnSpan="2" />
+        </Grid>
+    </Grid>
+</Window>
